@@ -4,7 +4,6 @@ import styles from "./movie-videos.module.css";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 async function getVideos(id: string): Promise<Video[]> {
-  console.log(`fetching vidoes: ${Date.now()}`);
   try {
     const res = await fetch(`${API_URL}/${id}/videos`);
     const data: Video[] = await res.json();

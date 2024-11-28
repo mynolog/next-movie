@@ -17,7 +17,9 @@ export default function MovieCard({ title, id, poster_path }: MovieCardProps) {
   return (
     <div className={styles.card} key={id}>
       <img src={poster_path} alt={title} onClick={onClick} />
-      <Link href={`/movies/${id}`}>{title}</Link>
+      <Link prefetch href={`/movies/${id}`}>
+        {title}
+      </Link>
     </div>
   );
 }

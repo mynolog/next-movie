@@ -1,0 +1,32 @@
+import type { Video } from "../../../types/Movie";
+import styles from "./movie-videos.module.css";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+async function getVideos(id: string): Promise<Video[]> {
+  console.log(`fetching vidoes: ${Date.now()}`);
+  try {
+    const res = await fetch(`${API_URL}/${id}/videos`);
+    const data: Video[] = await res.json();
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export default async function MovieVideos({ id }: { id: string }) {
+  const videos = await getVideos(id);
+  return (
+    <div className={styles.container}>
+      {videos.map((video) => (
+        <iframe
+          key={video.id}
+          src={`https://youtube.com/embed/${video.key}`}
+          title={video.name}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      ))}
+    </div>
+  );
+}

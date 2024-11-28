@@ -1,13 +1,14 @@
 import { Metadata } from "next";
-import Link from "next/link";
 
 import type { Movie } from "../../types/Movie";
+import MovieCard from "../../components/movie/card/movie-card";
+import styles from "./style.module.css";
 
 export const metadata: Metadata = {
   title: "Home",
 };
 
-export const API_URL = "https://nomad-movies.nomadcoders.workers.dev/movies";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 async function getMovies(): Promise<Movie[]> {
   try {
@@ -22,11 +23,14 @@ async function getMovies(): Promise<Movie[]> {
 export default async function Home() {
   const movies = await getMovies();
   return (
-    <div>
+    <div className={styles.container}>
       {movies.map((movie) => (
-        <li key={movie.id}>
-          <Link href={`/movies/${movie.id}`}>{movie.title}</Link>
-        </li>
+        <MovieCard
+          key={movie.id}
+          id={movie.id}
+          title={movie.title}
+          poster_path={movie.poster_path}
+        />
       ))}
     </div>
   );

@@ -15,6 +15,8 @@ export type Movie = {
   vote_count: number;
 };
 
+export type MovieInfo = {};
+
 export type Video = {
   iso_639_1: string;
   iso_3166_1: string;
